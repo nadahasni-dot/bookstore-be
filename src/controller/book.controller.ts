@@ -11,7 +11,7 @@ const getBooks = async (req: Request, res: Response) => {
     tags: tags as string,
   });
 
-  res.send(result).status(result.code);
+  res.status(result.code).send(result);
 };
 
 const getBookDetail = async (req: Request, res: Response) => {
@@ -19,7 +19,7 @@ const getBookDetail = async (req: Request, res: Response) => {
 
   const result = await fetchBook(id);
 
-  res.send(result).status(result.code);
+  res.status(result.code).send(result);
 };
 
 export { getBooks, getBookDetail };

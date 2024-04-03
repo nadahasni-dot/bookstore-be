@@ -29,4 +29,17 @@ const getUserByEmail = async (email: string) => {
   });
 };
 
-export { insertUser, getUserByEmail };
+const getUserById = async (id: number) => {
+  return await prisma.user.findFirst({
+    where: { id },
+  });
+};
+
+const updateBalancePoint = async (id: number, point: number) => {
+  return await prisma.user.update({
+    where: { id },
+    data: { point },
+  });
+};
+
+export { insertUser, getUserByEmail, getUserById, updateBalancePoint };

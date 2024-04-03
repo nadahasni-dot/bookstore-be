@@ -72,6 +72,8 @@ model OrderItem {
   orderId   Int
   book      Book     @relation(fields: [bookId], references: [id])
   bookId    Int
+  quantity  Int
+  subTotal  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -48,7 +48,7 @@ const fetchBooks = async ({ page, perPage, query, tags }: FetchBookParam) => {
       tags: allTags,
     });
 
-    if (!books || books.length === 0) {
+    if (!books || books.length <= 0) {
       return {
         code: 404,
         success: false,

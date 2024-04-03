@@ -4,7 +4,7 @@ const fetchAllTags = async () => {
   try {
     const tags = await getAllTags();
 
-    if (!tags) {
+    if (!tags || tags.length <= 0) {
       return {
         code: 404,
         success: false,

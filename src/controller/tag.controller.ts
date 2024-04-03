@@ -4,7 +4,7 @@ import { fetchAllTags } from "../service/tag.service";
 const getTags = async (req: Request, res: Response) => {
   const result = await fetchAllTags();
 
-  res.send(result).status(result.code);
+  res.status(result.code).send(result);
 };
 
 export { getTags };

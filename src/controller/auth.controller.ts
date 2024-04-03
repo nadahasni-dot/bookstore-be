@@ -6,7 +6,7 @@ const signUp = async (req: Request, res: Response) => {
 
   const result = await signUpNewUser({ name, email, password });
 
-  res.send(result).status(result.code);
+  res.status(result.code).send(result);
 };
 
 const signIn = async (req: Request, res: Response) => {
@@ -14,7 +14,7 @@ const signIn = async (req: Request, res: Response) => {
 
   const result = await authenticateUser({ email, password });
 
-  res.send(result).status(result.code);
+  res.status(result.code).send(result);
 };
 
 export { signUp, signIn };
