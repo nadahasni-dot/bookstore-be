@@ -1,10 +1,40 @@
-import { getAllBooks } from "../repository/book.repository";
+import { getAllBooks, getBookById } from "../repository/book.repository";
 
 type FetchBookParam = {
   page: string;
   perPage: string;
   query: string;
   tags: string;
+};
+
+const fetchBook = async (id: string) => {
+  try {
+    const book = await getBookById(Number(id));
+
+    if (!book) {
+      return {
+        code: 404,
+        success: false,
+        message: "book not found",
+        data: null,
+      };
+    }
+
+    return {
+      code: 200,
+      success: true,
+      message: "book found",
+      data: book,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      code: 500,
+      success: false,
+      message: "Internal server error",
+      data: null,
+    };
+  }
 };
 
 const fetchBooks = async ({ page, perPage, query, tags }: FetchBookParam) => {
@@ -34,7 +64,6 @@ const fetchBooks = async ({ page, perPage, query, tags }: FetchBookParam) => {
       data: books,
     };
   } catch (error) {
-    console.log(error)
     return {
       code: 500,
       success: false,
@@ -44,4 +73,4 @@ const fetchBooks = async ({ page, perPage, query, tags }: FetchBookParam) => {
   }
 };
 
-export { fetchBooks };
+export { fetchBooks, fetchBook };

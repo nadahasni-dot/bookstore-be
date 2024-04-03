@@ -7,6 +7,19 @@ type GetAllBooksParam = {
   tags?: string[];
 };
 
+const getBookById = async (id: number) => {
+  return await prisma.book.findFirst({
+    where: { id },
+    include: {
+      bookTags: {
+        select: {
+          tag: true,
+        },
+      },
+    },
+  });
+};
+
 const getAllBooks = async ({
   perPage,
   page,
@@ -44,7 +57,9 @@ const getAllBooks = async ({
     take: perPage,
     include: {
       bookTags: {
-        include: { tag: {} },
+        select: {
+          tag: true,
+        },
       },
     },
     where: {
@@ -53,4 +68,4 @@ const getAllBooks = async ({
   });
 };
 
-export { getAllBooks };
+export { getAllBooks, getBookById };
