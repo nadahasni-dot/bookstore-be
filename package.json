@@ -4,13 +4,14 @@
   "description": "backend rest api for bookstore with typescript and express.js",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "npx prisma migrate dev",
+    "test": "echo \"Error: no test specified\" && exit 1",    
     "build": "npx tsc",
-    "start": "npm run migrate && node dist/index.js",
-    "seed": "npx ts-node prisma/seed.ts",
+    "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
-    "postinstall": "npm run build"
+    "postinstall": "tsc"
+  },
+  "prisma": {
+    "seed": "npx ts-node prisma/seed.ts"
   },
   "keywords": [
     "typescript",
