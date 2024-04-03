@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import { authRouter, bookRouter, orderRouter } from "./routes";
+import { authRouter, bookRouter, orderRouter, tagRouter } from "./routes";
 import { isAuthenticated } from "./middleware/auth.middleware";
 
 dotenv.config();
@@ -14,6 +14,7 @@ const apiUrl = "/api/v1";
 app.use(express.json());
 
 app.use(`${apiUrl}/auth`, authRouter);
+app.use(`${apiUrl}/tag`, tagRouter);
 app.use(`${apiUrl}/book`, bookRouter);
 app.use(`${apiUrl}/order`, isAuthenticated, orderRouter);
 
