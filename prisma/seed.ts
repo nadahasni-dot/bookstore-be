@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { prisma } from "./prismaClient";
+import { prisma } from "./prisma.client";
 
 const tagData: Prisma.TagCreateInput[] = [
   { name: "adventure" },
