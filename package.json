@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "npx prisma migrate dev",
     "build": "npx tsc",
-    "start": "npm run mirate && node dist/index.js",
+    "start": "npm run migrate && node dist/index.js",
     "seed": "npx ts-node prisma/seed.ts",
     "dev": "nodemon src/index.ts",
     "postinstall": "npm run build"
