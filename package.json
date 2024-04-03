@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "start": "node dist/index.js",
+    "migrate": "npx prisma migrate dev",
     "seed": "npx ts-node prisma/seed.ts",
-    "dev": "nodemon src/index.ts",
-    "vercel-build": "echo overwrite"
+    "dev": "nodemon src/index.ts"
   },
   "keywords": [
     "typescript",
@@ -34,5 +34,8 @@
     "prisma": "^5.12.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.3"
+  },
+  "engines": {
+    "node": "18.21.1"
   }
 }

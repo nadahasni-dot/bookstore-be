@@ -12,6 +12,7 @@ const app: Express = express();
 const apiUrl = "/api/v1";
 
 app.use(express.json());
+app.use(express.static("public"));
 
 app.use(`${apiUrl}/auth`, authRouter);
 app.use(`${apiUrl}/tag`, tagRouter);
