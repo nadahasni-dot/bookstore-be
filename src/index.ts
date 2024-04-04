@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import { authRouter, bookRouter, orderRouter, tagRouter } from "./routes";
 import { isAuthenticated } from "./middleware/auth.middleware";
 
@@ -11,6 +12,7 @@ const app: Express = express();
 
 const apiUrl = "/api/v1";
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
