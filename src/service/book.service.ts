@@ -62,6 +62,10 @@ const fetchBooks = async ({ page, perPage, query, tags }: FetchBookParam) => {
       success: true,
       message: "books found",
       data: books,
+      meta: {
+        page,
+        perPage,
+      },
     };
   } catch (error) {
     return {
