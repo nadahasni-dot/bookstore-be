@@ -44,12 +44,13 @@ const fetchBook = async (id: string) => {
 const fetchBooks = async ({ page, perPage, query, tags }: FetchBookParam) => {
   try {
     const allTags = tags.length < 1 ? [] : tags.split(",");
+    const cleanTags = allTags.map((tag) => tag.replace(/\\+/g, " "));
 
     const books = await getAllBooks({
       page: Number(page),
       perPage: Number(perPage),
       query,
-      tags: allTags,
+      tags: cleanTags,
     });
 
     if (!books || books.length <= 0) {
@@ -63,7 +64,7 @@ const fetchBooks = async ({ page, perPage, query, tags }: FetchBookParam) => {
 
     const countBooks = await countAllBooksByQueryAndTags({
       query,
-      tags: allTags,
+      tags: cleanTags,
     });
 
     const totalPage = Math.ceil(countBooks / Number(perPage));
