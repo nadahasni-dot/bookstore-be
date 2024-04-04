@@ -5,6 +5,7 @@ import {
   fetchAllOrders,
   fetchOrderDetail,
   proceedCheckout,
+  cancelOrderedItems,
 } from "../service/order.service";
 
 const getOrders = async (req: Request, res: Response) => {
@@ -32,4 +33,13 @@ const checkout = async (req: Request, res: Response) => {
   res.status(result.code).send(result);
 };
 
-export { getOrders, getOrderDetail, checkout };
+const cancelOrder = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { id: userId } = (req as CustomRequest).user;
+
+  const result = await cancelOrderedItems(userId, Number(id));
+
+  res.status(result.code).send(result);
+};
+
+export { getOrders, getOrderDetail, checkout, cancelOrder };

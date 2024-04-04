@@ -1,7 +1,8 @@
-import { Book } from "@prisma/client";
 import {
   createNewOrder,
   createNewOrderItem,
+  deleteOrderById,
+  deleteOrderItemsByOrderId,
   getAllOrdersByUserId,
   getOrderdDetailById,
 } from "../repository/order.repository";
@@ -163,4 +164,57 @@ const proceedCheckout = async (userId: number, items: BookItem[]) => {
   }
 };
 
-export { fetchAllOrders, fetchOrderDetail, proceedCheckout };
+const cancelOrderedItems = async (userId: number, orderId: number) => {
+  try {
+    const order = await getOrderdDetailById(orderId);
+    const user = await getUserById(userId);
+
+    if (!order) {
+      return {
+        code: 404,
+        success: false,
+        message: "Related order id not found",
+        data: null,
+      };
+    }
+
+    if (!user) {
+      return {
+        code: 404,
+        success: false,
+        message: "Related user id not found",
+        data: null,
+      };
+    }
+
+    const newBalance = user.point + order.paid;
+    await updateBalancePoint(userId, newBalance);
+
+    await deleteOrderItemsByOrderId(orderId);
+    await deleteOrderById(orderId);
+
+    return {
+      code: 200,
+      success: true,
+      message: "Order cancelled, balance point updated",
+      data: {
+        ...user,
+        point: newBalance,
+      },
+    };
+  } catch (error) {
+    return {
+      code: 500,
+      success: false,
+      message: "Internal server error",
+      data: null,
+    };
+  }
+};
+
+export {
+  fetchAllOrders,
+  fetchOrderDetail,
+  proceedCheckout,
+  cancelOrderedItems,
+};

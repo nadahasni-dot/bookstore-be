@@ -69,9 +69,23 @@ const createNewOrderItem = async ({
   });
 };
 
+const deleteOrderById = async (id: number) => {
+  return await prisma.order.delete({
+    where: { id },
+  });
+};
+
+const deleteOrderItemsByOrderId = async (orderId: number) => {
+  return await prisma.orderItem.deleteMany({
+    where: { orderId },
+  });
+};
+
 export {
   getAllOrdersByUserId,
   getOrderdDetailById,
   createNewOrder,
   createNewOrderItem,
+  deleteOrderById,
+  deleteOrderItemsByOrderId,
 };
