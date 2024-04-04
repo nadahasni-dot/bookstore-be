@@ -13,8 +13,26 @@ type CreateNewOrderItemParam = {
   subTotal: number;
 };
 
-const getAllOrdersByUserId = async (id: number) => {
+type GetAllOrdersParam = {
+  userId: number;
+  page: number;
+  perPage: number;
+};
+
+const countAllOrdersByUserId = async (userId: number) => {
+  return await prisma.order.count({
+    where: { userId },
+  });
+};
+
+const getAllOrdersByUserId = async ({
+  userId,
+  page,
+  perPage,
+}: GetAllOrdersParam) => {
   return await prisma.order.findMany({
+    skip: page === 1 ? 0 : (page - 1) * perPage,
+    take: perPage,
     include: {
       orderItems: {
         select: {
@@ -24,7 +42,7 @@ const getAllOrdersByUserId = async (id: number) => {
         },
       },
     },
-    where: { userId: id },
+    where: { userId },
   });
 };
 
@@ -88,4 +106,5 @@ export {
   createNewOrderItem,
   deleteOrderById,
   deleteOrderItemsByOrderId,
+  countAllOrdersByUserId,
 };

@@ -1,4 +1,5 @@
 import {
+  countAllOrdersByUserId,
   createNewOrder,
   createNewOrderItem,
   deleteOrderById,
@@ -14,9 +15,23 @@ export type BookItem = {
   quantity: number;
 };
 
-const fetchAllOrders = async (id: number) => {
+export type FetchAllOrdersParam = {
+  userId: number;
+  page: string;
+  perPage: string;
+};
+
+const fetchAllOrders = async ({
+  userId,
+  page,
+  perPage,
+}: FetchAllOrdersParam) => {
   try {
-    const orders = await getAllOrdersByUserId(id);
+    const orders = await getAllOrdersByUserId({
+      userId,
+      page: Number(page),
+      perPage: Number(perPage),
+    });
 
     if (!orders || orders.length <= 0) {
       return {
@@ -27,11 +42,19 @@ const fetchAllOrders = async (id: number) => {
       };
     }
 
+    const countOrders = await countAllOrdersByUserId(userId);
+    const totalPage = Math.ceil(countOrders / Number(perPage));
+
     return {
       code: 200,
       success: true,
       message: "orders found",
       data: orders,
+      meta: {
+        page,
+        perPage,
+        totalPage,
+      },
     };
   } catch (error) {
     return {

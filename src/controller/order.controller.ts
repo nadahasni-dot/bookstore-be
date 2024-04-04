@@ -10,8 +10,13 @@ import {
 
 const getOrders = async (req: Request, res: Response) => {
   const { id } = (req as CustomRequest).user;
+  const { page = "1", perPage = "10" } = req.query;
 
-  const result = await fetchAllOrders(id);
+  const result = await fetchAllOrders({
+    userId: id,
+    page: page as string,
+    perPage: perPage as string,
+  });
 
   res.status(result.code).send(result);
 };
