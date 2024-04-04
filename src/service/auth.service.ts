@@ -5,16 +5,16 @@ import { getUserByEmail, insertUser } from "../repository/user.repository";
 const JWT_SECRET = process.env.JWT_SECRET || "SECRET";
 const SALT_ROUND = process.env.SALT_ROUND || 10;
 
-type SignUpParam = {
+interface SignUpParam {
   name: string;
   email: string;
   password: string;
-};
+}
 
-type AuthenticateUserParam = {
+interface AuthenticateUserParam {
   email: string;
   password: string;
-};
+}
 
 const validateEmail = (email: string) => {
   return email.match(

@@ -4,12 +4,12 @@ import {
   getBookById,
 } from "../repository/book.repository";
 
-type FetchBookParam = {
+interface FetchBookParam {
   page: string;
   perPage: string;
   query: string;
   tags: string;
-};
+}
 
 const fetchBook = async (id: string) => {
   try {

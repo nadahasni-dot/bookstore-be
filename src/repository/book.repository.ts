@@ -1,16 +1,16 @@
 import { prisma } from "../../prisma/prisma.client";
 
-type GetAllBooksParam = {
+interface GetAllBooksParam {
   perPage: number;
   page: number;
   query?: string;
   tags?: string[];
-};
+}
 
-type CountAllBooksByQueryAndTagsParam = {
+interface CountAllBooksByQueryAndTagsParam {
   query?: string;
   tags?: string[];
-};
+}
 
 const countAllBooksByQueryAndTags = async ({
   query,

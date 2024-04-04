@@ -10,16 +10,16 @@ import {
 import { getBookById } from "../repository/book.repository";
 import { getUserById, updateBalancePoint } from "../repository/user.repository";
 
-export type BookItem = {
+export interface BookItem {
   bookId: number;
   quantity: number;
-};
+}
 
-export type FetchAllOrdersParam = {
+export interface FetchAllOrdersParam {
   userId: number;
   page: string;
   perPage: string;
-};
+}
 
 const fetchAllOrders = async ({
   userId,

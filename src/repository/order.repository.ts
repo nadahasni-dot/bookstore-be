@@ -1,23 +1,23 @@
 import { prisma } from "../../prisma/prisma.client";
 
-type CreateNewOrderParam = {
+interface CreateNewOrderParam {
   userId: number;
   total: number;
   paid: number;
-};
+}
 
-type CreateNewOrderItemParam = {
+interface CreateNewOrderItemParam {
   orderId: number;
   bookId: number;
   quantity: number;
   subTotal: number;
-};
+}
 
-type GetAllOrdersParam = {
+interface GetAllOrdersParam {
   userId: number;
   page: number;
   perPage: number;
-};
+}
 
 const countAllOrdersByUserId = async (userId: number) => {
   return await prisma.order.count({

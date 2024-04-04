@@ -1,11 +1,11 @@
 import { prisma } from "../../prisma/prisma.client";
 
-type InsertUserParam = {
+interface InsertUserParam {
   name: string;
   email: string;
   point: number;
   password: string;
-};
+}
 
 const insertUser = async ({
   name,
