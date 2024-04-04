@@ -1,4 +1,8 @@
-import { getAllBooks, getBookById } from "../repository/book.repository";
+import {
+  countAllBooksByQueryAndTags,
+  getAllBooks,
+  getBookById,
+} from "../repository/book.repository";
 
 type FetchBookParam = {
   page: string;
@@ -57,6 +61,13 @@ const fetchBooks = async ({ page, perPage, query, tags }: FetchBookParam) => {
       };
     }
 
+    const countBooks = await countAllBooksByQueryAndTags({
+      query,
+      tags: allTags,
+    });
+
+    const totalPage = Math.ceil(countBooks / Number(perPage));
+
     return {
       code: 200,
       success: true,
@@ -65,6 +76,7 @@ const fetchBooks = async ({ page, perPage, query, tags }: FetchBookParam) => {
       meta: {
         page,
         perPage,
+        totalPage,
       },
     };
   } catch (error) {
